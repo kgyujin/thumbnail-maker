@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>썸네일 메이커</title>
+    <link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>썸네일 메이커</h1>
+        <div class="input-group">
+            <input type="text" id="titleInput" placeholder="제목을 입력하세요" class="input-field">
+            <input type="text" id="subtitleInput" placeholder="부제목을 입력하세요" class="input-field">
+            <input type="text" id="tagInput" placeholder="태그를 입력하세요" class="input-field">
+        </div>
+        <button id="generateBtn" class="btn">썸네일 생성</button>
+        <canvas id="thumbnailCanvas" width="800" height="400"></canvas>
+        <button id="downloadBtn" class="btn">다운로드</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
