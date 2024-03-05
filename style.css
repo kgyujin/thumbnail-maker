@@ -12,34 +12,23 @@ body, html {
   padding-top: 20px;
 }
 
-.input-group {
-  margin-bottom: 20px;
+.input-row {
+  margin-bottom: 10px; /* 각 입력 필드 간의 간격 */
 }
 
 .input-field {
-  margin: 5px;
+  width: 60%; /* 입력 필드 너비 조정 */
   padding: 10px;
+  margin-top: 5px; /* 상단 여백 */
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: calc(33% - 12px);
-}
-
-.btn {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #536FB0;
-  color: white;
-  margin: 10px;
 }
 
 canvas {
   border: 1px solid #ddd;
-  background-color: white;
   margin-top: 20px;
+  background-color: white;
   display: block;
   margin-left: auto;
   margin-right: auto;
