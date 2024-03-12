@@ -21,24 +21,35 @@ function drawRoundedRect(x, y, width, height, radius, fill, stroke = true) {
 }
 
 function drawTags(tags) {
-    const maxTags = tags.slice(0, 5); // 최대 5개의 태그 처리
-    maxTags.forEach((tag, index) => {
+    const maxTags = tags.slice(0, 4); // 태그 최대 4개까지
+    const padding = 10; // 태그 텍스트 좌우 패딩
+    let totalWidth = 0; // 모든 태그의 총 너비 계산에 사용될 변수
+    const tagHeight = 25; // 태그 높이
+    const tagSpacing = 5; // 태그 간의 가로 간격
+
+    ctx.font = '18px Pretendard'; // 태그 폰트 사이즈 부제목보다 작게
+    maxTags.forEach(tag => {
         const tagText = '# ' + tag.trim();
-        ctx.font = '20px Pretendard';
-        const textWidth = ctx.measureText(tagText).width;
-        const padding = 20;
-        const tagHeight = 30;
-        const rectWidth = textWidth + padding;
-        const rectX = (canvas.width - rectWidth) / 2;
-        const rectY = canvas.height - (tagHeight + 20) * (maxTags.length - index) - 30;
+        const tagWidth = ctx.measureText(tagText).width + padding * 2;
+        totalWidth += tagWidth + tagSpacing; // 태그 간 간격 추가
+    });
+
+    let startX = (canvas.width - totalWidth + tagSpacing) / 2; // 첫 태그의 시작 X 좌표, 가운데 정렬
+    const startY = canvas.height - 70; // 시작 Y 좌표, 하단 여백 고려
+
+    maxTags.forEach(tag => {
+        const tagText = '# ' + tag.trim();
+        const tagWidth = ctx.measureText(tagText).width + padding * 2;
 
         ctx.fillStyle = 'lightgray';
-        drawRoundedRect(rectX, rectY, rectWidth, tagHeight, 10, true, false); // 둥근 모서리의 사각형을 그립니다.
-        
-        // 태그 텍스트를 정중앙에 배치
+        drawRoundedRect(startX, startY - tagHeight, tagWidth, tagHeight, 5, true);
+
         ctx.fillStyle = '#333';
         ctx.textAlign = 'center';
-        ctx.fillText(tagText, canvas.width / 2, rectY + tagHeight / 2 + 6); // Y 위치 조정
+        // 수정된 부분: tag.text -> tagText 사용
+        ctx.fillText(tagText, startX + tagWidth / 2, startY - (tagHeight / 2) + (tagHeight / 4));
+
+        startX += tagWidth + tagSpacing; // 다음 태그를 위해 X 좌표 업데이트
     });
 }
 
