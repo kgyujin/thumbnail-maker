@@ -3,6 +3,9 @@ const subtitleInput = document.getElementById('subtitleInput');
 const categoryInput = document.getElementById('categoryInput');
 const canvas = document.getElementById('thumbnailCanvas');
 const ctx = canvas.getContext('2d');
+const backgroundColorPicker = document.getElementById('backgroundColorPicker');
+let customBackgroundColor = '#fff'; // 기본 배경색을 흰색으로 설정
+
 
 function drawRoundedRect(x, y, width, height, radius, fill, stroke = true) {
     ctx.beginPath();
@@ -41,12 +44,13 @@ function drawTags(tags) {
         const tagText = '# ' + tag.trim();
         const tagWidth = ctx.measureText(tagText).width + padding * 2;
 
-        ctx.fillStyle = 'lightgray';
-        drawRoundedRect(startX, startY - tagHeight, tagWidth, tagHeight, 5, true);
+        // 둥근 모서리 사각형 배경, 외곽선 제거
+        ctx.fillStyle = '#000000'; // 태그 배경 색상
+        drawRoundedRect(startX, startY - tagHeight, tagWidth, tagHeight, 5, true, false);
 
-        ctx.fillStyle = '#333';
+        // 태그 텍스트, 폰트 색상 변경
+        ctx.fillStyle = '#FFFFFF'; // 태그 폰트 색상
         ctx.textAlign = 'center';
-        // 수정된 부분: tag.text -> tagText 사용
         ctx.fillText(tagText, startX + tagWidth / 2, startY - (tagHeight / 2) + (tagHeight / 4));
 
         startX += tagWidth + tagSpacing; // 다음 태그를 위해 X 좌표 업데이트
@@ -55,7 +59,7 @@ function drawTags(tags) {
 
 function drawThumbnail() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#fff';
+    ctx.fillStyle = customBackgroundColor; // 사용자가 선택한 배경색 사용
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const title = titleInput.value.trim();
@@ -82,6 +86,13 @@ function drawThumbnail() {
         drawTags(categories);
     }
 }
+
+// 배경색 변경 이벤트 리스너
+backgroundColorPicker.addEventListener('change', function() {
+    customBackgroundColor = backgroundColorPicker.value; // 사용자가 선택한 배경색 저장
+    drawThumbnail(); // 배경색 변경 후 썸네일 다시 그리기
+});
+
 
 titleInput.addEventListener('input', drawThumbnail);
 subtitleInput.addEventListener('input', drawThumbnail);
